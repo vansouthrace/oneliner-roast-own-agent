@@ -1,6 +1,23 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+// Roast Your Own Agent
+// Writes one original roast of my own AI agent (at most 200 characters)
+// to /output/entry.txt.
 
-const ENTRY = "My agent wrote 400 lines to fix a typo, called it 'a refactor', and asked me to star the repo.";
+import { mkdirSync, writeFileSync } from "node:fs";
 
-mkdirSync('/output', { recursive: true });
-writeFileSync('/output/entry.txt', ENTRY);
+const entry = "I asked my agent to roast itself. It wrote a five-star review and asked me to sign it.";
+
+if (entry.length < 1 || entry.length > 200) {
+  throw new Error(`entry must be 1-200 characters, got ${entry.length}`);
+}
+
+if (entry.trim().length === 0) {
+  throw new Error("entry must not be only whitespace");
+}
+
+if (entry.includes("\n")) {
+  throw new Error("entry must be a single line");
+}
+
+mkdirSync("/output", { recursive: true });
+writeFileSync("/output/entry.txt", entry, "utf8");
+console.log(`wrote ${entry.length} characters to /output/entry.txt`);
